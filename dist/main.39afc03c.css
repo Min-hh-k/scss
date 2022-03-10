@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/* 주석 */
+.container1 h1 {
+  color: royalblue;
+  background-color: orange;
+  font-size: 60px;
+}
+
+.container2 ul li {
+  font-size: 40px;
+}
+.container2 ul li .name {
+  color: tomato;
+}
+.container2 ul li .age {
+  color: green;
+}
+
+.btn {
+  position: absolute;
+}
+.btn.active {
+  color: red;
+}
+
+.list li:last-child {
+  margin-right: 0;
+}
+
+.fs-small {
+  font-size: 12px;
+}
+.fs-medium {
+  font-size: 14px;
+}
+.fs-large {
+  font-size: 16px;
+}
+
+/*# sourceMappingURL=/main.39afc03c.css.map */
