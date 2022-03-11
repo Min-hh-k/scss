@@ -47,3 +47,125 @@ $color: royalblue;
   &-medium {font-size: 14px;}
   &-large {font-size: 16px;}
 }
+
+// 중첩된 속성
+.box {
+  font: { // font 네임스페이스: 이름을 통해 구분 가능한 범위를 만들어내는 것, 일종의 유효범위 지정 방법
+    weight: bold;
+    size: 10px;
+    family: sans-serif;
+  };
+  margin: {
+    top: 10px;
+    bottom: 15px;
+  };
+  padding: {
+    top: 10px;
+    bottom: 5px;
+    left: 10px;
+    right: 10px;
+  };
+}
+
+// 변수
+$size: 200px; // 중괄호 안에서 선언하면 안에서만 사용가능
+
+.container {
+  position: fixed;
+  top: $size; // 200px
+  .item {
+    $size: 100px;
+    width: $size; // 100px
+    height: $size; // 100px
+    transform: translateX($size);
+  }
+  left: $size; // 100px, 변수를 재할당 한 뒤, 밑 부분은 재할당 한 값이 적용됨.
+}
+
+// 산술연산자
+
+.div {
+  $size: 10px;
+  width: 20px + 20px;
+  height: 40px - 10px;
+  font-size: 10px * 2;
+  margin: (30px / 2); // == $size / 2   // 나누기 연산자는 ( ) 안에 작성
+  padding: 20px % 7; // ==6px
+}
+
+.box {
+  width: calc(100% - 100px);
+}
+
+// 재활용 mixin
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  @include center; // 지정해둔 것 호출
+  .item {
+    @include center;
+  }
+}
+
+.box {
+  @include center;
+}
+
+
+// 매개변수 처럼 지정하여 , 사용 값에인수지정하여 사용
+@mixin box($size) { 
+  width: $size;
+  height: $size;
+  background-color: tomato;
+}
+
+.container {
+  @include box(200px); 
+  .item {
+    @include box(100px);
+  }
+}
+
+.box {
+  @include box(200px);
+}
+
+//
+@mixin box($size : 100px) { // $size 에 100px 기본값 지정 
+  width: $size;
+  height: $size;
+  background-color: tomato;
+}
+
+.container {
+  @include box(200px); 
+  .item {
+    @include box; // 100px 값 출력 
+  }
+}
+
+.box {
+  @include box; // 100px 값 출력
+}
+
+//
+@mixin box($size : 100px, $color : blue) { // $size 에 100px 기본값 지정 
+  width: $size;
+  height: $size;
+  background-color: $color;
+}
+
+.container {
+  @include box(200px, red);  //width height == 200px, backgroundColor = red 출력
+  .item {
+    @include box($color : green); // 100px 값 과 배경색 그린 출력, <키워드인수>
+  }
+}
+
+.box {
+  @include box; // 100px 값 출력
+}
