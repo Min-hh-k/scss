@@ -169,3 +169,60 @@ $size: 200px; // 중괄호 안에서 선언하면 안에서만 사용가능
 .box {
   @include box; // 100px 값 출력
 }
+
+// 반복문
+
+@for $i from 1 through 10 {
+  .box {
+    width: 100px;
+  }
+}
+
+@for $i from 1 through 10 {
+  .box:nth-child(#{$i}) { //.box:nth-child(1) ... .box:nth-child(10) , 순서 지정시 #{} 사용
+    width: 100px;
+  }
+}
+
+// 함수
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@function ratio($size, $ratio) {
+  @return $size * $ratio
+}
+
+.box {
+  $width: 160px;
+  width: $width;
+  height: ratio($width, 9/16);
+  @include center;
+}
+
+// 색상 내장함수
+
+.box {
+  $color: blue;
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: $color;
+  &:hover {
+    background-color: darken($color, 30%);
+  }
+  &.built-in {
+    background-color: mix($color, red);
+    // mix(첫번째 색, 두번째 색) ,, 섞기
+    // lighten(색상, 10%) ,,선택한 색상이 10% 밝아짐
+    // darken(색상, 20%) ,, 선택한 색상이 20% 어두워짐
+    // saturate($color, 40%) ,, 색상의 채도가 40% 올라감
+    // desaturate($color, 40%) ,, 색상의 채도가 40% 내려감
+    // grayscale(색상) ,, 주어진 색을 회색으로 만듬
+    // invert(색상) ,, 주어진 색상을 반전 시킴
+    // rgba(색상, 0.2) ,, 색상의 투명도 0.2 출력
+  }
+}
